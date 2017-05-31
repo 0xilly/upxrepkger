@@ -1,0 +1,19 @@
+plugins {
+    id "de.undercouch.download" version "3.2.0"
+    id 'maven-publish'
+}
+
+//Import because the plugin is weird and the download tasktype is broken
+import de.undercouch.gradle.tasks.download.Download
+task downloadUpx() {
+	download {
+		src([ "${project.upxwin}", "${project.upxosx}", "${project.upxlinux}"])
+		dest new File("$buildDir/upx/${project.upxver}")
+	}
+}
+
+task clean(type: Delete) {
+	doLast {
+		delete "${buildDir}"
+	}
+}
